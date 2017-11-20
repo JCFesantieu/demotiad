@@ -15,9 +15,6 @@ variable key_name {
     type = "string"
 }
 
-variable "public_zone" {
-  type = "string"
-}
 
 variable "bastion_name" {
   type = "string"
@@ -70,23 +67,9 @@ resource "aws_eip" "bastion" {
   vpc      = true
 }
 
-resource "aws_route53_record" "bastion" {
-    zone_id = "${var.public_zone}"
-    name = "${var.bastion_name}"
-    ttl = "${var.bastion_ttl}"
-    type = "A"
-    records = ["${aws_eip.bastion.public_ip}"]
-}
-
-output "bastion" {
-   value = "${aws_route53_record.bastion.fqdn}"
-}
 
 output "bastion_ip" {
    value = "${aws_eip.bastion.public_ip}"
 }
 
-output "public_zone" {
-   value = "${var.public_zone}"
-}
 

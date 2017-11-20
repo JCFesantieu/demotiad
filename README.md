@@ -32,21 +32,28 @@ Create necessary ECR repositories (dynnginx is a supporting image used later). Y
 ```
 aws ecr create-repository --repository-name demotiad/vote
 aws ecr create-repository --repository-name demotiad/dynnginx
+aws ecr create-repository --repository-name demotiad/dynhaproxy
 ```
-Build the dynnginx image
+Build the dynnginx & dynhaproxy (not used at the beginning) images
 ```
 docker build -t demotiad/dynnginx app/dynnginx
+docker build -t demotiad/dynhaproxy app/dynhaproxy
+
 ```
 Get your repositories ids
 ```
 voterepo=$(aws ecr describe-repositories --repository-names demotiad/vote --query 'repositories[0].repositoryUri' --output text)
 nginxrepo=$(aws ecr describe-repositories --repository-names demotiad/dynnginx --query 'repositories[0].repositoryUri' --output text)
+haproxyrepo=$(aws ecr describe-repositories --repository-names demotiad/dynhaproxy --query 'repositories[0].repositoryUri' --output text)
+
 ```
 Tag the images with remote repositories
 ```
 docker tag demotiad/vote:0.1 ${voterepo}:0.1
 docker tag demotiad/vote:latest ${voterepo}:latest
 docker tag demotiad/dynnginx:latest ${nginxrepo}:latest
+docker tag demotiad/dynhaproxy:latest ${haproxyrepo}:latest
+
 ```
 Log to ECR and push the images
 ```
@@ -54,6 +61,8 @@ $(aws ecr get-login)
 docker push ${voterepo}:0.1
 docker push ${voterepo}:latest
 docker push ${nginxrepo}:latest
+docker push ${haproxyrepo}:latest
+
 ```
 The images are now available in ECR
 

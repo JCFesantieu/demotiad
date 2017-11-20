@@ -6,6 +6,5 @@ vpc_name = "DEMO TIAD"
 
 domain = "demo.tiad"
 
-key_name = "aws-dev"
+key_name = "aws-ssh-admin"
 
-public_zone = "Z32YN70UZV2CU7"
