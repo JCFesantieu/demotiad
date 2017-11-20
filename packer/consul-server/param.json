@@ -1,0 +1,11 @@
+{
+    "source_ami": "",
+    "region": "eu-west-1",
+    "build_vpc": "vpc-f67d4f91",
+    "build_subnet": "subnet-b83855e3",
+    "build_sg": "",
+    "ssh_private"   : "false",
+    "public_ip"     : "true",
+    "project" : "consul"
+    "consul_version" : "0.7.0"
+}
