@@ -11,7 +11,7 @@ COMMIT=${TRAVIS_COMMIT:-'unknown'}
 SHORT_COMMIT=${COMMIT:0:7}
 
 ACCOUNT=$(aws sts get-caller-identity --query 'Account' --output text)
-WEBSITE=$(aws elbv2 describe-load-balancers --query 'LoadBalancers[0].DNSName' --output text)
+WEBSITE=$(aws elbv2 describe-load-balancers --query 'LoadBalancers[0].DNSName' --output text --region eu-west-1)
 
 echo "Building image"
 docker build -t $REPO_NAME:$SHORT_COMMIT --build-arg version=$SHORT_COMMIT $APP_DIR
